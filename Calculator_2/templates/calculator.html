@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+        }
+        
+        .calculator {
+            margin: 0 auto;
+            width: 300px;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+        
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .calculator-buttons button {
+            background-color: #e0e0e0;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .result {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .history {
+            text-align: left;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <form method="POST" action="/">
+            <input type="text" name="expression" placeholder="Enter your expression">
+            <div class="calculator-buttons">
+                <button type="button" onclick="appendToExpression('7')">7</button>
+                <button type="button" onclick="appendToExpression('8')">8</button>
+                <button type="button" onclick="appendToExpression('9')">9</button>
+                <button type="button" onclick="appendToExpression('/')">/</button>
+                <button type="button" onclick="appendToExpression('4')">4</button>
+                <button type="button" onclick="appendToExpression('5')">5</button>
+                <button type="button" onclick="appendToExpression('6')">6</button>
+                <button type="button" onclick="appendToExpression('*')">*</button>
+                <button type="button" onclick="appendToExpression('1')">1</button>
+                <button type="button" onclick="appendToExpression('2')">2</button>
+                <button type="button" onclick="appendToExpression('3')">3</button>
+                <button type="button" onclick="appendToExpression('-')">-</button>
+                <button type="button" onclick="appendToExpression('0')">0</button>
+                <button type="button" onclick="appendToExpression('.')">.</button>
+                <button type="button" onclick="clearExpression()">C</button>
+                <button type="button" onclick="appendToExpression('+')">+</button>
+            </div>
+            <input type="submit" value="Calculate">
+            <div class="result">
+                {% if history and history[-1].result %}
+                    Result: {{ history[-1].result }}
+                {% endif %}
+            </div>
+        </form>
+        <div class="history">
+            <h2>History</h2>
+            {% if history %}
+                {% for item in history %}
+                    <p>{{ item.expression }} = {{ item.result }}</p>
+                {% endfor %}
+            {% else %}
+                <p>No calculations yet.</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <script>
+        function appendToExpression(value) {
+            var expressionField = document.getElementsByName("expression")[0];
+            expressionField.value += value;
+        }
+        
+        function clearExpression() {
+            var expressionField = document.getElementsByName("expression")[0];
+            expressionField.value = "";
+        }
+    </script>
+</body>
+</html>
+
+
+

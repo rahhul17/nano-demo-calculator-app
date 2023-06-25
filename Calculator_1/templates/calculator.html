@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+        }
+        
+        .calculator {
+            margin: 0 auto;
+            width: 300px;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+        
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .history {
+            text-align: left;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <form method="POST" action="/">
+            <input type="text" name="expression" placeholder="Enter your expression">
+            <input type="submit" value="Calculate">
+        </form>
+        <div class="history">
+            <h2>History</h2>
+            {% if history %}
+                {% for item in history %}
+                    <p>{{ item.expression }} = {{ item.result }}</p>
+                {% endfor %}
+            {% else %}
+                <p>No calculations yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
